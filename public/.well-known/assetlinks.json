@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.amtshelfer.ai",
+      "sha256_cert_fingerprints": [
+        "E1:B7:11:9C:1C:2A:BE:48:B1:CB:D3:08:68:6D:E0:6E:FE:9E:DE:33:8D:8C:D2:C6:A2:CE:44:96:54:F2:27:33"
+      ]
+    }
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "packageId": "de.amtshelfer.ai",
+  "host": "amtshelfer-ai-app-de-mt0t.bolt.host",
+  "name": "AmtsHelfer AI — Behördenbriefe einfach verstehen",
+  "launcherName": "AmtsHelfer",
+  "display": "standalone",
+  "themeColor": "#2563EB",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#F9FAFB",
+  "enableNotifications": true,
+  "startUrl": "/home",
+  "iconUrl": "https://amtshelfer-ai-app-de-mt0t.bolt.host/pwa-512x512.png",
+  "maskableIconUrl": "https://amtshelfer-ai-app-de-mt0t.bolt.host/pwa-512x512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:\\Users\\matth\\Downloads\\project-bolt-sb1-tvzrwqms\\project\\android.keystore",
+    "alias": "amtshelfer"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://amtshelfer-ai-app-de-mt0t.bolt.host/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {
+    "playBilling": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://amtshelfer-ai-app-de-mt0t.bolt.host/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": "",
+  "displayOverride": [],
+  "appVersion": "1"
+}
