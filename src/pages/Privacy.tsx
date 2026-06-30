@@ -146,7 +146,7 @@ export default function Privacy() {
             </P>
             <SubHead>Kontoschließung</SubHead>
             <P>
-              Bei Wunsch zur Löschung Ihres Kontos und aller damit verbundenen Daten wenden Sie sich bitte an: info@dlekem.com. Alle Ihre Daten werden innerhalb von 30 Tagen vollständig gelöscht.
+              Sie können Ihr Konto und alle damit verbundenen Daten jederzeit selbst in der App löschen: Startseite → „Konto löschen" → Bestätigung. Die Löschung erfolgt sofort und ist unwiderruflich. Alternativ können Sie eine Löschanfrage per E-Mail an info@dlekem.com senden; alle Ihre Daten werden innerhalb von 30 Tagen vollständig gelöscht.
             </P>
             <SubHead>Gastnutzung</SubHead>
             <P>

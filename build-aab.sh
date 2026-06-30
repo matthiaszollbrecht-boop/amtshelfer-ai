@@ -38,12 +38,12 @@ info "Package:     $PACKAGE"
 info "Version:     $VERSION_NAME ($VERSION_CODE)"
 
 # ── 1. Production web build ──────────────────────────────────────────────────
-info "[1/6] Building production web bundle..."
+info "[1/7] Building production web bundle..."
 npm run build
 info "Web bundle built: ./dist"
 
 # ── 2. Patch twa-manifest.json with actual URL ───────────────────────────────
-info "[2/6] Patching twa-manifest.json with $APP_URL..."
+info "[2/7] Patching twa-manifest.json with $APP_URL..."
 node - <<EOF
 const fs = require('fs');
 const m  = JSON.parse(fs.readFileSync('twa-manifest.json', 'utf8'));
@@ -62,7 +62,7 @@ console.log('twa-manifest.json patched.');
 EOF
 
 # ── 3. Keystore: create if missing ───────────────────────────────────────────
-info "[3/6] Checking signing keystore..."
+info "[3/7] Checking signing keystore..."
 if [[ ! -f "$KEYSTORE" ]]; then
   warn "No keystore found — generating a new one at $KEYSTORE"
   warn "IMPORTANT: Back up this keystore! Losing it = you can never update the app."
@@ -81,7 +81,7 @@ else
 fi
 
 # ── 4. Extract SHA-256 fingerprint for assetlinks.json ───────────────────────
-info "[4/6] Extracting SHA-256 fingerprint..."
+info "[4/7] Extracting SHA-256 fingerprint..."
 FINGERPRINT=$(keytool -list -v \
   -keystore "$KEYSTORE" \
   -alias "$KEY_ALIAS" \
@@ -110,7 +110,7 @@ else
 fi
 
 # ── 5. Generate TWA Android project with Bubblewrap ──────────────────────────
-info "[5/6] Generating Android project with Bubblewrap..."
+info "[5/7] Generating Android project with Bubblewrap..."
 rm -rf "$OUTPUT_DIR"
 mkdir -p "$OUTPUT_DIR"
 cp twa-manifest.json "$OUTPUT_DIR/twa-manifest.json"
@@ -122,8 +122,54 @@ cp twa-manifest.json "$OUTPUT_DIR/twa-manifest.json"
     --skipPwaValidation 2>&1 | grep -v "^npm warn"
 )
 
-# ── 6. Build AAB ──────────────────────────────────────────────────────────────
-info "[6/6] Building Android App Bundle (.aab)..."
+# ── 6. Patch out PairIP (crashes app at start if not enrolled) ────────────────
+info "[6/7] Patching generated Android project (removing PairIP)..."
+
+MANIFEST="$OUTPUT_DIR/app/src/main/AndroidManifest.xml"
+BUILDGRADLE="$OUTPUT_DIR/app/build.gradle"
+APPGRADLE="$OUTPUT_DIR/app/build.gradle.kts"
+
+# Remove android:name="com.pairip.application.Application" from <application> tag
+for f in "$MANIFEST"; do
+  if [[ -f "$f" ]]; then
+    sed -i \
+      's/android:name="com\.pairip\.application\.Application"[[:space:]]*//' \
+      "$f"
+    info "  Patched: $f (removed PairIP Application class)"
+  fi
+done
+
+# Remove PairIP dependency from build.gradle (Groovy DSL)
+if [[ -f "$BUILDGRADLE" ]]; then
+  sed -i \
+    '/com\.pairip/d' \
+    "$BUILDGRADLE"
+  info "  Patched: $BUILDGRADLE (removed PairIP dependency)"
+fi
+
+# Remove PairIP dependency from build.gradle.kts (Kotlin DSL)
+if [[ -f "$APPGRADLE" ]]; then
+  sed -i \
+    '/com\.pairip/d' \
+    "$APPGRADLE"
+  info "  Patched: $APPGRADLE (removed PairIP dependency)"
+fi
+
+# Remove any PairIP-related Java/Kotlin source files
+find "$OUTPUT_DIR" -path "*/pairip/*" -name "*.java" -delete 2>/dev/null || true
+find "$OUTPUT_DIR" -path "*/pairip/*" -name "*.kt"   -delete 2>/dev/null || true
+
+# Verify patch worked
+if [[ -f "$MANIFEST" ]]; then
+  if grep -q "com.pairip" "$MANIFEST"; then
+    warn "PairIP reference still found in AndroidManifest.xml — check manually."
+  else
+    info "  PairIP successfully removed from AndroidManifest.xml"
+  fi
+fi
+
+# ── 7. Build AAB ──────────────────────────────────────────────────────────────
+info "[7/7] Building Android App Bundle (.aab)..."
 (
   cd "$OUTPUT_DIR"
   npx @bubblewrap/cli@latest build \

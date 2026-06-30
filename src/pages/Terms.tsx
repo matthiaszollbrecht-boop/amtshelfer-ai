@@ -181,12 +181,13 @@ export default function Terms() {
           {/* 8. Kontolöschung */}
           <Section num="8" title="Kontolöschung und Datenlöschung">
             <P>
-              Nutzer haben das Recht, ihr Konto und alle damit verbundenen Daten jederzeit löschen zu lassen:
+              Nutzer haben das Recht, ihr Konto und alle damit verbundenen Daten jederzeit selbst zu löschen:
             </P>
             <ul className="space-y-1">
               <Li>Einzelne gespeicherte Dokumente können direkt in der App gelöscht werden</Li>
-              <Li>Zur vollständigen Kontolöschung senden Sie eine E-Mail an: info@dlekem.com</Li>
-              <Li>Nach Bestätigung werden alle Daten (Profil, Dokumente, Analysen, Antwortbriefe, Fristen) innerhalb von 30 Tagen dauerhaft gelöscht</Li>
+              <Li><strong>Vollständige Kontolöschung direkt in der App:</strong> Startseite → „Konto löschen" → Bestätigung. Alle Daten (Profil, Dokumente, Analysen, Antwortbriefe, Fristen) werden sofort und dauerhaft gelöscht.</Li>
+              <Li>Alternativ per E-Mail an info@dlekem.com — Bearbeitung innerhalb von 30 Tagen</Li>
+              <Li>Bei aktivem Google-Play-Abonnement muss dieses zusätzlich im Google Play Store gekündigt werden</Li>
               <Li>Eine Wiederherstellung nach der Löschung ist nicht möglich</Li>
             </ul>
           </Section>

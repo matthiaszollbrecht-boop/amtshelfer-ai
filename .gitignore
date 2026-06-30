@@ -21,8 +21,3 @@ dist-ssr
 *.sln
 *.sw?
 .env
-android.keystore
-*.keystore
-local.propertiesbuild/
-build/
-app/build/

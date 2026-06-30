@@ -6,7 +6,8 @@ import { usePremium } from '../contexts/PremiumContext';
 import Layout from '../components/Layout';
 import BottomNav from '../components/BottomNav';
 import RiskBadge from '../components/RiskBadge';
-import { Scan, FileUp, Archive, Crown, Bell, FileText, LogOut, Shield, Building2, ScrollText } from 'lucide-react';
+import DeleteAccountModal from '../components/DeleteAccountModal';
+import { Scan, FileUp, Archive, Crown, Bell, FileText, LogOut, Shield, Building2, ScrollText, Trash2 } from 'lucide-react';
 import { ArchivedDocument, Reminder } from '../lib/store';
 import { getDocuments, getReminders } from '../lib/db';
 
@@ -18,6 +19,7 @@ export default function Home() {
 
   const [documents, setDocuments] = useState<ArchivedDocument[]>([]);
   const [reminders, setReminders] = useState<Reminder[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     if (!user || isGuest) return;
@@ -205,10 +207,22 @@ export default function Home() {
               <LogOut className="w-3.5 h-3.5" />
               {t('auth.logout')}
             </button>
+            {!isGuest && (
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-red-500 transition-colors"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                Konto löschen
+              </button>
+            )}
           </div>
         </div>
       </Layout>
       <BottomNav />
+      {showDeleteModal && (
+        <DeleteAccountModal onClose={() => setShowDeleteModal(false)} />
+      )}
     </>
   );
 }

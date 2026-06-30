@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { I18nProvider } from './i18n';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -16,11 +16,14 @@ import Language from './pages/Language';
 import Privacy from './pages/Privacy';
 import Impressum from './pages/Impressum';
 import Terms from './pages/Terms';
+import DeleteAccountPage from './pages/DeleteAccountPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import DisclaimerModal from './components/DisclaimerModal';
 import { useState } from 'react';
 
 function AppRouter() {
   const { user, isGuest, loading } = useAuth();
+  const location = useLocation();
   const [isOnboarded, setIsOnboarded] = useState(
     () => localStorage.getItem('amtsHelfer_onboarded') === 'true'
   );
@@ -30,6 +33,22 @@ function AppRouter() {
   );
 
   const isLoggedIn = user !== null || isGuest;
+
+  // Public routes — accessible without auth
+  // Also catch recovery tokens in the URL hash (Supabase may redirect to site root
+  // instead of /reset-password when the URL isn't whitelisted in the Auth allowlist)
+  const urlHash = window.location.hash;
+  if (
+    location.pathname === '/delete-account'
+  ) {
+    return <DeleteAccountPage />;
+  }
+  if (
+    location.pathname === '/reset-password' ||
+    urlHash.includes('type=recovery')
+  ) {
+    return <ResetPasswordPage />;
+  }
 
   if (loading) {
     return (

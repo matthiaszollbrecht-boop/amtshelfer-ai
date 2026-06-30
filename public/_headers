@@ -1,0 +1,6 @@
+# Android App Link verification requires application/json Content-Type
+# without it Google's verifier rejects the file
+/.well-known/assetlinks.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: no-cache, no-store, must-revalidate
+  Access-Control-Allow-Origin: *

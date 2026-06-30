@@ -348,3 +348,10 @@ export async function deleteReminder(id: string): Promise<void> {
   const { error } = await supabase.from('deadlines').delete().eq('id', id);
   if (error) throw error;
 }
+
+// ─── Account Deletion ──────────────────────────────────────────────────────
+
+export async function deleteAccount(): Promise<void> {
+  const { error } = await supabase.functions.invoke('delete-account', {});
+  if (error) throw error;
+}
