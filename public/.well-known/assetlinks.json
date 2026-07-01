@@ -8,7 +8,8 @@
       "namespace": "android_app",
       "package_name": "de.amtshelfer.ai",
       "sha256_cert_fingerprints": [
-        "E1:B7:11:9C:1C:2A:BE:48:B1:CB:D3:08:68:6D:E0:6E:FE:9E:DE:33:8D:8C:D2:C6:A2:CE:44:96:54:F2:27:33"
+        "E1:B7:11:9C:1C:2A:BE:48:B1:CB:D3:08:68:6D:E0:6E:FE:9E:DE:33:8D:8C:D2:C6:A2:CE:44:96:54:F2:27:33",
+        "D2:EA:1B:FE:D5:0A:D3:95:33:0C:7A:E4:2F:AC:D3:BB:FF:A8:A7:FE:27:D8:07:16:8B:E2:B0:9B:ED:C6:55:E8"
       ]
     }
   }
